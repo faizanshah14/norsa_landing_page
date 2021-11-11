@@ -56,6 +56,7 @@ function ClientForm() {
     if (params != null) {
       setClientID(params);
     } else {
+
       setFormData({ ...formData, ["id"]: uniqueID })
     }
     
@@ -66,6 +67,7 @@ function ClientForm() {
       setDealers(response.data)
     })
     .catch(function (error) {
+      alert("Server Error Try Again later")
       console.log(error);
     })
   }, []);
@@ -321,7 +323,7 @@ function ClientForm() {
                       <Form.Group>
                         <label>Email</label>
                         <Form.Control
-                          required
+                          
                           placeholder="Email"
                           type="text"
                           value={Email}
@@ -431,7 +433,7 @@ function ClientForm() {
                       <Form.Group>
                         <label>Porfabor agrega un potrét di bo Sédula</label>
                         <Form.Control
-                          required
+                          
                           type="file"
                           name="profilePicture"
                         //onChange={(e) => handleInputChange(e)}

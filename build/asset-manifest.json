@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/norsa_landing_page/static/css/main.cf63678d.chunk.css",
+    "main.js": "/norsa_landing_page/static/js/main.e8e310c0.chunk.js",
+    "main.js.map": "/norsa_landing_page/static/js/main.e8e310c0.chunk.js.map",
+    "runtime-main.js": "/norsa_landing_page/static/js/runtime-main.9bd074a4.js",
+    "runtime-main.js.map": "/norsa_landing_page/static/js/runtime-main.9bd074a4.js.map",
+    "static/css/2.fcde9c18.chunk.css": "/norsa_landing_page/static/css/2.fcde9c18.chunk.css",
+    "static/js/2.bf6874d0.chunk.js": "/norsa_landing_page/static/js/2.bf6874d0.chunk.js",
+    "static/js/2.bf6874d0.chunk.js.map": "/norsa_landing_page/static/js/2.bf6874d0.chunk.js.map",
+    "index.html": "/norsa_landing_page/index.html",
+    "static/css/2.fcde9c18.chunk.css.map": "/norsa_landing_page/static/css/2.fcde9c18.chunk.css.map",
+    "static/css/main.cf63678d.chunk.css.map": "/norsa_landing_page/static/css/main.cf63678d.chunk.css.map",
+    "static/js/2.bf6874d0.chunk.js.LICENSE.txt": "/norsa_landing_page/static/js/2.bf6874d0.chunk.js.LICENSE.txt",
+    "static/js/main.e8e310c0.chunk.js.LICENSE.txt": "/norsa_landing_page/static/js/main.e8e310c0.chunk.js.LICENSE.txt",
+    "static/media/all.min.css": "/norsa_landing_page/static/media/fa-solid-900.f4f93856.woff",
+    "static/media/norsalogo.png": "/norsa_landing_page/static/media/norsalogo.853127fa.png",
+    "static/media/light-bootstrap-dashboard-react.scss?v=2.0.0": "/norsa_landing_page/static/media/nucleo-icons.a30d0b02.ttf",
+    "static/media/reactlogo.55f6660b.png": "/norsa_landing_page/static/media/reactlogo.55f6660b.png",
+    "static/media/sidebar-1.2ea74e53.jpg": "/norsa_landing_page/static/media/sidebar-1.2ea74e53.jpg",
+    "static/media/sidebar-2.00b17713.jpg": "/norsa_landing_page/static/media/sidebar-2.00b17713.jpg",
+    "static/media/sidebar-3.9992d0ce.jpg": "/norsa_landing_page/static/media/sidebar-3.9992d0ce.jpg",
+    "static/media/sidebar-4.b7eb4d1b.jpg": "/norsa_landing_page/static/media/sidebar-4.b7eb4d1b.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9bd074a4.js",
+    "static/css/2.fcde9c18.chunk.css",
+    "static/js/2.bf6874d0.chunk.js",
+    "static/css/main.cf63678d.chunk.css",
+    "static/js/main.e8e310c0.chunk.js"
+  ]
+}
