@@ -30,6 +30,7 @@ function ClientForm() {
 
   const [formData, setFormData] = React.useState({
     id: "",
+    Date : "",
     Code: "",
     FirstName: "",
     LastName: "",
@@ -43,6 +44,7 @@ function ClientForm() {
     MaxBorrowAmount: "",
     Dealer_id: "",
     SourceOfIncome: "",
+    ExpiryDate : "",
     RecievedCreditInPast: false
   });
 
@@ -88,7 +90,9 @@ function ClientForm() {
     MaxBorrowAmount,
     Dealer_id,
     SourceOfIncome,
-    RecievedCreditInPast
+    RecievedCreditInPast,
+    Date,
+    ExpiryDate
   } = formData;
 
   const validateInput = (name, value) => {
@@ -168,7 +172,6 @@ function ClientForm() {
     history.push("/");
 
   };
-
   return (
     <>
       <Container>
@@ -182,6 +185,24 @@ function ClientForm() {
               </Card.Header>
               <Card.Body>
                 <Form onSubmit={handleSubmit}>
+                  <Row>
+                    <Col  md="12">
+                      <Form.Group>
+                        <label>Date</label>
+                        <Form.Control
+                          required
+                          placeholder="123"
+                          type="date"
+                          value={Date}
+                          name="Date"
+                          onChange={(e) => handleInputChange(e)}
+                        ></Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          Please provide a value.
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                  </Row>
                   <Row>
                     <Col className="pr-1" md="2">
                       <Form.Group>
@@ -233,7 +254,7 @@ function ClientForm() {
                     </Col>
                   </Row>
                   <Row>
-                    <Col md="12">
+                    <Col md="6">
                       <Form.Group>
                         <label>Sédula</label>
                         <Form.Control
@@ -242,6 +263,22 @@ function ClientForm() {
                           type="text"
                           value={idCard}
                           name="idCard"
+                          onChange={(e) => handleInputChange(e)}
+                        ></Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          Please provide a value.
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                    <Col  md="6">
+                      <Form.Group>
+                        <label>Expiry Date</label>
+                        <Form.Control
+                          required
+                          placeholder="123"
+                          type="date"
+                          value={ExpiryDate}
+                          name="ExpiryDate"
                           onChange={(e) => handleInputChange(e)}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
@@ -287,7 +324,7 @@ function ClientForm() {
                   <Row>
                     <Col md="12">
                       <Form.Group>
-                        <label>Ta taraha na</label>
+                        <label>Ta Empleá Na</label>
                         <Form.Control
                           required
                           placeholder="Ta taraha na"
@@ -323,7 +360,7 @@ function ClientForm() {
                       <Form.Group>
                         <label>Email</label>
                         <Form.Control
-                          
+
                           placeholder="Email"
                           type="text"
                           value={Email}
@@ -372,9 +409,9 @@ function ClientForm() {
                   </Row>
                   <Row>
                     <Col md="12">
-                        <label>A yega di tuma bon den pasado kaba? &nbsp;</label>
-                        <br />
-                        <Form.Check
+                      <label>A yega di tuma bon den pasado kaba? &nbsp;</label>
+                      <br />
+                      <Form.Check
                         inline
                         label="Si"
                         name="group1"
@@ -398,7 +435,7 @@ function ClientForm() {
                           handleInputChange(e);
                         }}
                       />
-                       
+
                     </Col>
                   </Row>
                   <Row>
@@ -416,7 +453,7 @@ function ClientForm() {
                             handleInputChange(e)
                           }}
                         >
-                          {dealers.map((item,index) => {
+                          {dealers.map((item, index) => {
                             return (
                               <option value={item.id}> Code : {item.Code}</option>
                             )
@@ -433,7 +470,7 @@ function ClientForm() {
                       <Form.Group>
                         <label>Porfabor agrega un potrét di bo Sédula</label>
                         <Form.Control
-                          
+
                           type="file"
                           name="profilePicture"
                         //onChange={(e) => handleInputChange(e)}
