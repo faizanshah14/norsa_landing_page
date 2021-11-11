@@ -69,7 +69,6 @@ function ClientForm() {
       setDealers(response.data)
     })
     .catch(function (error) {
-      alert("Server Error Try Again later")
       console.log(error);
     })
   }, []);
@@ -166,6 +165,8 @@ function ClientForm() {
         })
         .catch(function (error) {
           console.log(error)
+          alert("Server Error Try Again later")
+
         })
   
 
