@@ -15,28 +15,29 @@ import {
 import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import "../components/Dashboard.css";
-import  addClient  from "services/client";
+import addClient from "services/client";
 import _uniqueId from 'lodash/uniqueId';
 import { getActiveClientList } from "services/client";
+import { getNextId } from "services/client";
 
 
 function ClientForm() {
   const history = useHistory();
   const queryParams = new URLSearchParams(window.location.search);
-  const [ClientID, setClientID] = React.useState(null);
+  const [ClientID, setClientID] = React.useState();
   const [validated, setValidated] = React.useState(false);
-  const [uniqueID] = React.useState(_uniqueId("prefix-"))
+  const [uniqueID] = React.useState(_uniqueId("k-"))
   const [dealers, setDealers] = React.useState([])
 
   const [formData, setFormData] = React.useState({
-    id: "",
-    Date : "2021-01-01",
+    id: null,
+    Date: "2021-01-01",
     Code: "",
     FirstName: "",
     LastName: "",
-    idCard : "",
-    WorkNo: "",
-    ContactNo: "",
+    idCard: "",
+    WorkNo: "+5999 ",
+    ContactNo: "+5999 ",
     WorksAt: "",
     Email: "",
     FaxNumber: "",
@@ -44,35 +45,9 @@ function ClientForm() {
     MaxBorrowAmount: "",
     Dealer_id: "",
     SourceOfIncome: "",
-    ExpiryDate : "",
+    ExpiryDate: "",
     RecievedCreditInPast: false
   });
-
-  const [fileForm, setFileForm] = React.useState({
-    id : _uniqueId("prefix-"),
-    filePath : "",
-    Client_id : ""
-  })
-  useEffect(() => {
-    const params = queryParams.get("id");
-    if (params != null) {
-      setClientID(params);
-    } else {
-      setFormData({ ...formData, ["id"]: uniqueID })
-    }
-    
-    getActiveClientList().
-    then(function (response) {
-      console.log(response.data)
-      response.data.unshift({})
-      setDealers(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-  }, []);
-
- 
   const {
     id,
     Code,
@@ -92,6 +67,31 @@ function ClientForm() {
     Date,
     ExpiryDate
   } = formData;
+  const [fileForm, setFileForm] = React.useState({
+    id: _uniqueId("prefix-"),
+    filePath: "",
+    Client_id: ""
+  })
+  useEffect(() => {
+    
+    getNextId().then(function (response) {
+      console.log(response)
+      setFormData({ ...formData, ["id"]: response.data.id, ["Code"]: response.data.id })
+    }).catch(function (error) {
+      console.log(error)
+    })
+    getActiveClientList().
+      then(function (response) {
+        console.log(response.data)
+        response.data.unshift({})
+        setDealers(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, []);
+
+
 
   const validateInput = (name, value) => {
     if (name === "Code" || name === "WorksAt") {
@@ -109,7 +109,7 @@ function ClientForm() {
       return "only alphabets and spaces";
     }
     if (name === "WorkNo" || name === "FaxNumber" || name === "ContactNo" || name == "idCard") {
-      let pattern = new RegExp("^[0-9 ]*$");
+      let pattern = new RegExp("^[0-9 +]*$");
       if (pattern.test(value)) {
         return true;
       }
@@ -120,7 +120,6 @@ function ClientForm() {
   };
 
   const handleInputChange = (e) => {
-
     if (e.target.name == "Status") {
       setFormData({ ...formData, [e.target.name]: !Status });
       return
@@ -129,7 +128,10 @@ function ClientForm() {
       setFormData({ ...formData, [e.target.name]: !RecievedCreditInPast });
       return
     }
-  
+    if(e.target.name == "WorkNo" || e.target.name == "ContactNo"){
+      if(e.target.value.length < 6) return
+    }
+
     const valid = validateInput(e.target.name, e.target.value);
     if (valid != true) {
       alert(valid);
@@ -138,7 +140,7 @@ function ClientForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const validateEmail = (email) => {
-    if(email.length < 1) return true
+    if (email.length < 1) return true
     let pattern =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (pattern.test(email)) {
@@ -147,26 +149,26 @@ function ClientForm() {
     return "not a valid email";
   };
   const handleSubmit = (event) => {
+    
     event.preventDefault();
     const valid = validateEmail(Email);
     if (valid != true) {
       alert(valid);
       return;
     }
-    
-  
-      addClient(formData)
-        .then(function (response) {
-          console.log(response)
-          alert("Submitted !!!")
-        })
-        .catch(function (error) {
-          alert("Server Error Try Again later")
-          console.log(error)
-          alert("Server Error Try Again later")
 
-        })
-  
+
+    addClient(formData)
+      .then(function (response) {
+        console.log(response)
+        alert("Danki! bo formulario a wordu entrega. \n Nos lo tuma kontakto kubo si nos nester di mas informashon")
+      })
+      .catch(function (error) {
+        alert("Server Error Try Again later")
+        console.log(error)
+
+      })
+
 
     history.push("/");
 
@@ -211,8 +213,8 @@ function ClientForm() {
                           placeholder="123"
                           type="text"
                           value={Code}
+                          disabled
                           name="Code"
-                          onChange={(e) => handleInputChange(e)}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -269,7 +271,7 @@ function ClientForm() {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
-                    <Col  md="6">
+                    <Col md="6">
                       <Form.Group>
                         <label>Fecha di Vensementu</label>
                         <Form.Control
@@ -292,7 +294,7 @@ function ClientForm() {
                         <label>Tel Trabou</label>
                         <Form.Control
                           required
-                          placeholder="00-0000-00"
+                          placeholder="+5999"
                           type="text"
                           value={WorkNo}
                           name="WorkNo"
@@ -308,7 +310,7 @@ function ClientForm() {
                         <label> Celullar</label>
                         <Form.Control
                           required
-                          placeholder="042"
+                          placeholder="+5999"
                           type="text"
                           value={ContactNo}
                           name="ContactNo"
@@ -321,7 +323,7 @@ function ClientForm() {
                     </Col>
                   </Row>
                   <Row>
-                    <Col md="12">
+                    <Col md="6">
                       <Form.Group>
                         <label>Ta Empleá Na</label>
                         <Form.Control
@@ -337,25 +339,9 @@ function ClientForm() {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="4">
-                      <Form.Group>
-                        <label>Fax</label>
-                        <Form.Control
-                          required
-                          placeholder="Fax"
-                          type="text"
-                          value={FaxNumber}
-                          name="FaxNumber"
-                          onChange={(e) => handleInputChange(e)}
-                        ></Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                          Please provide a value.
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="4">
+
+
+                    <Col md="6">
                       <Form.Group>
                         <label>Email</label>
                         <Form.Control
@@ -371,22 +357,7 @@ function ClientForm() {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Kredito Maksimo</label>
-                        <Form.Control
-                          required
-                          placeholder="Kredito Maksimo"
-                          type="number"
-                          value={MaxBorrowAmount}
-                          name="MaxBorrowAmount"
-                          onChange={(e) => handleInputChange(e)}
-                        ></Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                          Please provide a value.
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
+
                   </Row>
                   <Row>
                     <Col md="12">
@@ -440,10 +411,11 @@ function ClientForm() {
                   <Row>
                     <Col className="pr-1" md="12">
                       <Form.Group>
-                        <label>Rebendedo</label>
+                        <label>Si e Kontesta si, serka ken?</label>
                         <Form.Control
                           as="select"
                           defaultValue=""
+                          placeHolder="select dealer"
                           value={Dealer_id}
                           name="Dealer_id"
                           onChange={e => {
@@ -453,8 +425,13 @@ function ClientForm() {
                           }}
                         >
                           {dealers.map((item, index) => {
+                            if (index == 0) {
+                              return (
+                                <option value={item.id}> Dealers : {item.Code}</option>
+                              )
+                            }
                             return (
-                              <option value={item.id}> Code : {item.Code}</option>
+                              <option value={item.id}> {item.Code}</option>
                             )
                           })}
                         </Form.Control>
@@ -469,6 +446,7 @@ function ClientForm() {
                       <Form.Group>
                         <label>Porfabor agrega un potrét di bo Sédula</label>
                         <Form.Control
+                          required
                           type="file"
                           name="profilePicture"
                         //onChange={(e) => handleInputChange(e)}
