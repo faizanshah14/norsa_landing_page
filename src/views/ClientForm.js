@@ -58,7 +58,6 @@ function ClientForm() {
     if (params != null) {
       setClientID(params);
     } else {
-
       setFormData({ ...formData, ["id"]: uniqueID })
     }
     
@@ -130,10 +129,7 @@ function ClientForm() {
       setFormData({ ...formData, [e.target.name]: !RecievedCreditInPast });
       return
     }
-  const handleFileChange = (e) => {
-    
-  }
-
+  
     const valid = validateInput(e.target.name, e.target.value);
     if (valid != true) {
       alert(valid);
@@ -181,7 +177,7 @@ function ClientForm() {
             <Card className="form-wrapper mt-4">
               <Card.Header style={{ backgroundColor: "#F7F7F8" }}>
                 <Card.Title as="h3" className="text-center m-3">
-                  Ciode di Kliente
+                  Formulario di Registrashon
                 </Card.Title>
               </Card.Header>
               <Card.Body>
@@ -471,7 +467,6 @@ function ClientForm() {
                       <Form.Group>
                         <label>Porfabor agrega un potrét di bo Sédula</label>
                         <Form.Control
-
                           type="file"
                           name="profilePicture"
                         //onChange={(e) => handleInputChange(e)}
