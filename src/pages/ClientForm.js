@@ -155,7 +155,7 @@ function ClientForm() {
   };
 
   const handleFileSubmit = () => {
-    console.log(file)
+    console.log(formData.id)
     const data = new FormData();
     data.append("file", file);
     data.append("id", uniqueID);
@@ -187,7 +187,7 @@ function ClientForm() {
       })
 
 
-    history.push("/");
+    history('/', { replace: true })
 
   };
   const handleFileChange = (event) => {
@@ -236,10 +236,11 @@ function ClientForm() {
                           required
                           placeholder="123"
                           type="text"
+                          size="lg"
                           value={Code}
                           disabled
                           name="Code"
-                          style={{ padding: "20px 10px" }}
+                          style={{ padding: "20px 10px", fontSize: "14px" }}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -252,11 +253,12 @@ function ClientForm() {
                         <Form.Control
                           required
                           placeholder="Frank"
+                          // size="lg"
                           type="text"
                           value={FirstName}
                           name="FirstName"
                           onChange={(e) => handleInputChange(e)}
-                          style={{ padding: "20px 10px" }}
+                          style={{ padding: "20px 10px", fontSize: "14px" }}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -272,8 +274,9 @@ function ClientForm() {
                           type="text"
                           value={LastName}
                           name="LastName"
+                          // size="lg"
                           onChange={(e) => handleInputChange(e)}
-                          style={{ padding: "20px 10px" }}
+                          style={{ padding: "20px 10px", fontSize: "14px" }}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -290,9 +293,10 @@ function ClientForm() {
                           placeholder=""
                           type="text"
                           value={idCard}
+                          // size="lg"
                           name="idCard"
                           onChange={(e) => handleInputChange(e)}
-                          style={{ padding: "20px 10px" }}
+                          style={{ padding: "20px 10px", fontSize: "14px" }}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -308,6 +312,7 @@ function ClientForm() {
                           type="date"
                           value={ExpiryDate}
                           name="ExpiryDate"
+                          // size="lg"
                           onChange={(e) => handleInputChange(e)}
                           style={{ fontSize: "14px", padding: "20px 10px" }}
                         ></Form.Control>
@@ -326,6 +331,7 @@ function ClientForm() {
                           placeholder="+5999"
                           type="text"
                           value={WorkNo}
+                          // size="lg"
                           name="WorkNo"
                           onChange={(e) => handleInputChange(e)}
                           style={{ fontSize: "14px", padding: "20px 10px" }}
@@ -344,6 +350,7 @@ function ClientForm() {
                           type="text"
                           value={ContactNo}
                           name="ContactNo"
+                          // size="lg"
                           onChange={(e) => handleInputChange(e)}
                           style={{ fontSize: "14px", padding: "20px 10px" }}
                         ></Form.Control>
@@ -363,8 +370,9 @@ function ClientForm() {
                           type="text"
                           value={WorksAt}
                           name="WorksAt"
+                          // size="lg"
                           onChange={(e) => handleInputChange(e)}
-                          style={{ padding: "20px 10px" }}
+                          style={{ padding: "20px 10px", fontSize: "14px" }}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -380,8 +388,9 @@ function ClientForm() {
                           type="text"
                           value={Email}
                           name="Email"
+                          // size="lg"
                           onChange={(e) => handleInputChange(e)}
-                          style={{ padding: "20px 10px" }}
+                          style={{ padding: "20px 10px", fontSize: "14px" }}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -399,6 +408,8 @@ function ClientForm() {
                           type="text"
                           value={address}
                           name="address"
+                          // size="lg"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => handleInputChange(e)}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
@@ -417,6 +428,7 @@ function ClientForm() {
                           as="textarea"
                           required
                           placeholder=""
+                          // size="lg"
                           value={SourceOfIncome}
                           name="SourceOfIncome"
                           onChange={(e) => handleInputChange(e)}
@@ -469,10 +481,10 @@ function ClientForm() {
                         <Form.Control
                           as="select"
                           defaultValue=""
-                          placeHolder="select dealer"
                           value={Dealer_id}
                           name="Dealer_id"
-                          style={{ fontSize: "14px", padding: "20px 10px" }}
+                          // size="lg"
+                          style={{ fontSize: "14px"}}
                           onChange={(e) => {
                             console.log(e);
                             console.log("e.target.value", e.target.value);
@@ -498,6 +510,7 @@ function ClientForm() {
                       </Form.Group>
                     </Col>
                   </Row>
+                 
                   <Row>
                     <Col md="12">
                       <Form.Group>
@@ -506,8 +519,12 @@ function ClientForm() {
                           required
                           type="file"
                           name="profilePicture"
-                          onChange={(e) => { handleFileChange(e) }}
-                        //onChange={(e) => handleInputChange(e)}
+                          // size="lg"
+                          style={{ fontSize: "14px" }}
+                          onChange={(e) => {
+                            handleFileChange(e);
+                          }}
+                          //onChange={(e) => handleInputChange(e)}
                         ></Form.Control>
                         <Form.Control.Feedback type="invalid">
                           Please provide a value.
@@ -515,11 +532,16 @@ function ClientForm() {
                       </Form.Group>
                     </Col>
                   </Row>
-                  {file && <Row>
-                    <Col md="12">
-                      <img src={URL.createObjectURL(file)}  style={{width : "100%", maxWidth : "150px"}}/>
-                    </Col>
-                  </Row>}
+                  {file && (
+                    <Row>
+                      <Col md="12">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          style={{ width: "100%", maxWidth: "150px" }}
+                        />
+                      </Col>
+                    </Row>
+                  )}
 
                   {/* <Row  className="padding-class">
                     <Col sm="12"  md="12">
